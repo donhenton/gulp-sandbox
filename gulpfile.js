@@ -12,6 +12,9 @@ var browserify = require('browserify');
 var notifier = require('node-notifier');
 var concat = require('gulp-concat');
 var del = require('del');
+var uglify = require('gulp-uglify');
+var buffer = require('vinyl-buffer');
+
 
 var notify = function (error) {
     var message = 'In: ';
@@ -51,6 +54,8 @@ function bundle() {
             .bundle()
             .on('error', notify)
             .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(uglify())
             .pipe(gulp.dest('./build/js'))
 }
 
