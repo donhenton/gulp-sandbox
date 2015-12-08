@@ -48,7 +48,7 @@ var bundler = browserify({
     entries: ['./src/js/main.js'],
     debug: env === 'dev',
     cache: {},
-    noParse: ['./src/js/vendor/jquery-1.11.2.js', './src/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'],
+    noParse: ['./node_modules/jquery/dist/jquery.js'],
     packageCache: {},
     fullPaths: true
 });
@@ -85,11 +85,17 @@ gulp.task('clean', function () {
  * copy the html stuff minus css and js
  */
 gulp.task('copy-assets', ['clean'], function () {
-    gulp.src('./**/*', {base: './public_html'})
+gulp.src('**/*', {base: './public_html'})
             .pipe(gulp.dest('./build/'));
+     gulp.src('src/css/**/*.css')
+            .pipe(gulp.dest('./build/css'));
+     gulp.src('src/images/**/*')
+             .pipe(gulp.dest('./build/images'));
+    
 });
 
 
 
 
-gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
+//gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
+gulp.task('build', ['clean',  'copy-assets']);
