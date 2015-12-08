@@ -140,10 +140,9 @@ gulp.task('serve', function () {
         }
     });
     gulp.watch('src/css/**/*.*', function (event) {
-        if (isOnlyChange(event)) {
+        
             gulp.start('copy-css');
-            sync.reload;
-        }
+         
     });
     gulp.watch('src/images/**/*.*', function (event) {
             gulp.start('copy-images');
