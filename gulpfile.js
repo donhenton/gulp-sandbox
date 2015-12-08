@@ -17,7 +17,7 @@ var buffer = require('vinyl-buffer');
 var gulpif = require('gulp-if')
 //var watch = require('gulp-watch');
 var watchify = require('watchify');
-var sync = require('browser-sync');
+var sync = require('browser-sync').create();
 
 
 var notify = function (error) {
@@ -95,7 +95,7 @@ gulp.task('copy-assets', ['copy-html','copy-images','copy-css'], function () {
 
 gulp.task('copy-html',   function () {
     gulp.src('**/*', {base: './public_html'})
-            .pipe(gulp.dest('./build/')).pipe(sync.stream());;
+            .pipe(gulp.dest('./build/'));
      
 
 });
@@ -114,6 +114,9 @@ gulp.task('copy-images',   function () {
             .pipe(gulp.dest('./build/images'));
 
 });
+gulp.task('html-watch',  ['copy-html'],sync.reload);
+gulp.task('css-watch',   ['copy-css'],sync.reload);
+gulp.task('images-watch',  ['copy-images'],sync.reload);
 
 /* ----------------------- watch --------------------------- */
 
@@ -123,16 +126,16 @@ function isOnlyChange(event) {
 /* ----------------------- watch --------------------------- */
 
 gulp.task('serve', function () {
-    sync({
+    sync.init({
         server: {
             baseDir: 'build'
         }
     });
 
-    gulp.watch('public_html/**/*.*', ['copy-html']);
-    gulp.watch('src/css/**/*.*', ['copy-css', sync.reload]);
-    gulp.watch('src/images/**/*.*', ['copy-images', sync.reload]);
-    gulp.watch('src/js/**/*.*', ['bundle-js', sync.reload]);
+    gulp.watch('public_html/index.html', ['html-watch']);
+    gulp.watch('src/css/**/*.*', ['css-watch']);
+    gulp.watch('src/images/**/*.*', ['images-watch']);
+    gulp.watch('src/js/**/*.*', ['bundle-js']);
     
 });
 
