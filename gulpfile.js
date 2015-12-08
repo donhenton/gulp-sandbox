@@ -15,8 +15,9 @@ var del = require('del');
 var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
 var gulpif = require('gulp-if')
-var watch  = require('gulp-watch');
-var watchify  = require('watchify');
+//var watch = require('gulp-watch');
+var watchify = require('watchify');
+var sync = require('browser-sync');
 
 
 var notify = function (error) {
@@ -58,29 +59,29 @@ var bundler = watchify(browserify({
 
 
 function bundle(f) {
-    console.log(f);  
-    var b =  bundler
+    console.log(f);
+    var b = bundler
             .bundle()
             .on('error', notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
             .pipe(gulpif(env === 'prod', uglify()))
             .pipe(gulp.dest('./build/js'));
-    
+
     return b;
 }
 
-bundler.on("update",bundle);
+bundler.on("update", bundle);
 
-gulp.task('bundle-js', ['clean','copy-assets'], function ( ) {
-    
-    bundle();
+gulp.task('bundle-js', function ( ) {
+
+    bundle().pipe(sync.stream());
 });
 
 
 gulp.task('clean', function () {
     return del([
-        './build/'
+        './build/**/*','build'
                 // here we use a globbing pattern to match everything inside the `mobile` folder
                 //'dist/mobile/**/*',
                 // we don't want to clean this file though so we negate the pattern
@@ -91,18 +92,55 @@ gulp.task('clean', function () {
 /**
  * copy the html stuff minus css and js
  */
-gulp.task('copy-assets', ['clean'], function () {
+gulp.task('copy-assets', ['copy-html','copy-images','copy-css'], function () {
+     
+
+});
+
+gulp.task('copy-html',   function () {
     gulp.src('**/*', {base: './public_html'})
             .pipe(gulp.dest('./build/'));
+     
+
+});
+
+gulp.task('copy-css',   function () {
+     
     gulp.src('src/css/**/*.css')
             .pipe(gulp.dest('./build/css'));
+     
+
+});
+
+gulp.task('copy-images',   function () {
+    
     gulp.src('src/images/**/*')
             .pipe(gulp.dest('./build/images'));
 
 });
 
+/* ----------------------- watch --------------------------- */
+
+function isOnlyChange(event) {
+    return event.type === 'changed';
+}
+/* ----------------------- watch --------------------------- */
+
+gulp.task('serve', function () {
+    sync({
+        server: {
+            baseDir: 'build'
+        }
+    });
+
+    gulp.watch('public_html/**/*.*', ['copy-html', sync.reload]);
+    gulp.watch('src/css/**/*.*', ['copy-css', sync.reload]);
+    gulp.watch('src/images/**/*.*', ['copy-images', sync.reload]);
+    gulp.watch('src/js/**/*.*', ['bundle-js', sync.reload]);
+    
+});
 
 
 
 //gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
-gulp.task('build', ['clean','copy-assets', 'bundle-js'  ]);
+gulp.task('build', ['clean', 'copy-assets','bundle-js', 'serve']);
