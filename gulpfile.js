@@ -14,6 +14,7 @@ var concat = require('gulp-concat');
 var del = require('del');
 var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
+var gulpif = require('gulp-if')
 
 
 var notify = function (error) {
@@ -37,16 +38,22 @@ var notify = function (error) {
 
     notifier.notify({title: title, message: message});
 };
-
+var env = process.env.NODE_ENV;
+if (!env)
+{
+    env = 'dev';
+}
 
 var bundler = browserify({
     entries: ['./src/js/main.js'],
-    debug: true,
+    debug: env === 'dev',
     cache: {},
     noParse: ['./src/js/vendor/jquery-1.11.2.js', './src/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'],
     packageCache: {},
     fullPaths: true
 });
+
+
 
 function bundle() {
 
@@ -55,11 +62,11 @@ function bundle() {
             .on('error', notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
-            .pipe(uglify())
-            .pipe(gulp.dest('./build/js'))
+            .pipe(gulpif(env === 'prod', uglify()))
+            .pipe(gulp.dest('./build/js'));
 }
 
-gulp.task('bundle-js', ['clean'],function () {
+gulp.task('bundle-js', ['clean'], function () {
     bundle();
 });
 
@@ -77,7 +84,7 @@ gulp.task('clean', function () {
 /**
  * copy the html stuff minus css and js
  */
-gulp.task('copy-assets', ['clean'],function () {
+gulp.task('copy-assets', ['clean'], function () {
     gulp.src('./**/*', {base: './public_html'})
             .pipe(gulp.dest('./build/'));
 });
@@ -85,4 +92,4 @@ gulp.task('copy-assets', ['clean'],function () {
 
 
 
-gulp.task('build', ['clean', 'bundle-js','copy-assets']);
+gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
