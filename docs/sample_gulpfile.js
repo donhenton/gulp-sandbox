@@ -8,8 +8,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var sync = require('browser-sync');
-// env vars https://www.youtube.com/watch?v=gRzCAyNrPV8&list=PLRk95HPmOM6PN-G1xyKj9q6ap_dc9Yckm&index=4
-//http://stackoverflow.com/questions/24992980/how-to-uglify-output-with-browserify-in-gulp
+
 var del = require('del');
 
 gulp.task('clean', function (cb) {

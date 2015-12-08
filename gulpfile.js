@@ -15,6 +15,8 @@ var del = require('del');
 var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
 var gulpif = require('gulp-if')
+var watch  = require('gulp-watch');
+var watchify  = require('watchify');
 
 
 var notify = function (error) {
@@ -44,29 +46,34 @@ if (!env)
     env = 'dev';
 }
 
-var bundler = browserify({
+var bundler = watchify(browserify({
     entries: ['./src/js/main.js'],
     debug: env === 'dev',
     cache: {},
     noParse: ['./node_modules/jquery/dist/jquery.js'],
     packageCache: {},
     fullPaths: true
-});
+}));
 
 
 
-function bundle() {
-
-    return bundler
+function bundle(f) {
+    console.log(f);  
+    var b =  bundler
             .bundle()
             .on('error', notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
             .pipe(gulpif(env === 'prod', uglify()))
             .pipe(gulp.dest('./build/js'));
+    
+    return b;
 }
 
-gulp.task('bundle-js', ['clean'], function () {
+bundler.on("update",bundle);
+
+gulp.task('bundle-js', ['clean','copy-assets'], function ( ) {
+    
     bundle();
 });
 
@@ -98,4 +105,4 @@ gulp.task('copy-assets', ['clean'], function () {
 
 
 //gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
-gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
+gulp.task('build', ['clean','copy-assets', 'bundle-js'  ]);

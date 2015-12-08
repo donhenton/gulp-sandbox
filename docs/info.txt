@@ -5,3 +5,7 @@ https://www.youtube.com/watch?v=OQk2MhdzIHo&feature=iv&src_vid=78_iyqT-qT8&annot
 https://github.com/substack/node-browserify
 
 https://github.com/johnpapa/gulp-patterns/blob/master/gulpfile.js
+
+
+// env vars https://www.youtube.com/watch?v=gRzCAyNrPV8&list=PLRk95HPmOM6PN-G1xyKj9q6ap_dc9Yckm&index=4
+//http://stackoverflow.com/questions/24992980/how-to-uglify-output-with-browserify-in-gulp
