@@ -80,7 +80,7 @@ gulp.task('bundle-js', function ( ) {
 
 
 gulp.task('clean', function () {
-    var paths = 
+ 
       del.sync(['build']);
       // console.log('del\n'+paths.join('\n'));
 });
