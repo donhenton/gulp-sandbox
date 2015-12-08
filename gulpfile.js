@@ -85,17 +85,17 @@ gulp.task('clean', function () {
  * copy the html stuff minus css and js
  */
 gulp.task('copy-assets', ['clean'], function () {
-gulp.src('**/*', {base: './public_html'})
+    gulp.src('**/*', {base: './public_html'})
             .pipe(gulp.dest('./build/'));
-     gulp.src('src/css/**/*.css')
+    gulp.src('src/css/**/*.css')
             .pipe(gulp.dest('./build/css'));
-     gulp.src('src/images/**/*')
-             .pipe(gulp.dest('./build/images'));
-    
+    gulp.src('src/images/**/*')
+            .pipe(gulp.dest('./build/images'));
+
 });
 
 
 
 
 //gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
-gulp.task('build', ['clean',  'copy-assets']);
+gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);

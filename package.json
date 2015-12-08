@@ -11,7 +11,7 @@
   "author": "dhenton",
   "contributors": [],
   "dependencies": {
-    "d3": "^3.5.10"
+     
   },
   "devDependencies": {
     "browserify": "^9.0.3",

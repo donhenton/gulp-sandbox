@@ -1,73 +1,100 @@
 <!doctype html>
- <html >  
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    
-        
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-       
-    </head>
-    <body>
-         
+<!-- description -->
+	<title>Section 6-Becoming Responsive - Mastering CSS</title>
 
-        <div class="header-container">
-            <header class="wrapper clearfix">
-                <h1 class="title">h1.title</h1>
-                <nav>
-                    <ul>
-                        <li><a href="#">nav ul li a</a></li>
-                        <li><a href="#">nav ul li a</a></li>
-                        <li><a href="#">nav ul li a</a></li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
-
-        <div class="main-container">
-            <div class="main wrapper clearfix">
-
-                <article>
-                    <header>
-                        <h1>article header h1</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
-                    </header>
-                    <section>
-                        <h2>article section h2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
-                    </section>
-                    <section>
-                        <h2>article section h2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
-                    </section>
-                    <footer>
-                        <h3>article footer h3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
-                    </footer>
-                </article>
-
-                <aside>
-                    <h3>aside</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
-                </aside>
-
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
-
-        <div class="footer-container">
-            <footer class="wrapper">
-                <h3>footer</h3>
-            </footer>
-        </div>
-
+<!-- stylesheets -->
+	<link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
         <script src="js/bundle.js" type="text/javascript"></script>
+<!-- stylesheets for older browsers -->	
+	<!-- ie6/7 micro clearfix -->
+	<!--[if lte IE 7]>
+		<style>
+		.grouping {
+		    *zoom: 1;
+		}
+		</style>
+	<![endif]-->
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-        
 
-         
-    </body>
+</head>
+<body>
+<!-- 
+===============
+Nav
+===============
+-->
+<nav class="grouping">
+	<figure>
+		<img src="images/sharky.png" alt="Shark">
+	</figure>
+	<ul class="primary-nav grouping">
+		<li><a href="#">Home</a></li>
+		<li class="has-submenu"><a href="shark-movies.html">Movies</a>
+			<ul>
+				<li class=""><a href="">Jaws</a></li>
+				<li class=""><a href="">Sharknado</a></li>
+				<li class=""><a href="">Open Water</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Species</a></li>
+		<li><a href="#">Chum</a></li>
+	</ul>
+</nav>
+
+<!-- Intro Section -->
+
+<section class="grouping">
+	<div class="wrapper">
+		<div class="intro-content">
+			<h1>Old Chompy</h1>
+			<h2>Dedicated to sharks and other aquatic species</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam minima repellat officiis, nulla qui, iure aspernatur, obcaecati consequuntur quam at sapiente laborum ut, in mollitia repellendus quas beatae porro dolores esse fuga asperiores incidunt voluptatum dolor facilis. Deserunt, optio consequuntur.</p>
+		</div><!-- end intro-content -->
+		<div class="go-premium">
+			<a href="#" class="call-to-action">Go Premium</a>
+			<p class="reasons">So many awesome features when you go premium. <a href="#">Learn more &raquo;</a></p>
+		</div><!-- end go-premium -->
+	</div><!-- end wrapper -->
+	
+</section><!-- end section -->
+<!-- 
+===============
+Secondary Sections
+===============
+-->
+<section class="secondary-section grouping">
+	<div class="wrapper">
+		<div class="column">
+			<figure>
+				<img src="images/octopus-icon.png" alt="Octopus">
+			</figure>
+			<h2>The Octopus</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. </p>
+			<a href="#" class="button">Tenticals &raquo;</a>
+		</div>
+		<div class="column">
+			<figure><img src="images/crab-icon.png" alt="Crab"></figure>
+			<h2>The Crab</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quasi aliquam, sapiente quisquam sed, numquam illo autem voluptas ut eos. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci.</p>
+			<a href="#" class="button">Crabby &raquo;</a>
+		</div>
+		<div class="column">
+			<figure><img src="images/whale-icon.png" alt="Whale"></figure>
+			<h2>The Whale</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque quas amet nulla eveniet ratione, facere est assumenda itaque obcaecati adipisci. </p>
+			<a href="#" class="button">Stuart &raquo;</a>
+		</div>
+	</div><!-- end wrapper -->
+
+</section>
+</body>
 </html>
