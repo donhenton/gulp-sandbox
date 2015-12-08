@@ -18,6 +18,7 @@ var gulpif = require('gulp-if')
 //var watch = require('gulp-watch');
 var watchify = require('watchify');
 var sync = require('browser-sync').create();
+var json3 = require('json3')
 
 
 var notify = function (error) {
@@ -59,7 +60,7 @@ var bundler = watchify(browserify({
 
 
 function bundle(f) {
-    console.log(f);
+   // console.log(f);
     var b = bundler
             .bundle()
             .on('error', notify)
@@ -132,7 +133,12 @@ gulp.task('serve', function () {
         }
     });
 
-    gulp.watch('public_html/index.html', ['html-watch']);
+    gulp.watch('public_html/**/*.html',  function(event) {
+    if(isOnlyChange(event)) {
+       gulp.start('html-watch');
+    } 
+    console.log(json3.stringify(event));
+  });
     gulp.watch('src/css/**/*.*', ['css-watch']);
     gulp.watch('src/images/**/*.*', ['images-watch']);
     gulp.watch('src/js/**/*.*', ['bundle-js']);
@@ -142,4 +148,5 @@ gulp.task('serve', function () {
 
 
 //gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
-gulp.task('build', ['clean', 'copy-assets','bundle-js', 'serve']);
+gulp.task('build-serve', ['clean', 'copy-assets','bundle-js', 'serve']);
+gulp.task('build', ['clean', 'copy-assets','bundle-js']);
