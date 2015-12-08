@@ -80,13 +80,9 @@ gulp.task('bundle-js', function ( ) {
 
 
 gulp.task('clean', function () {
-    return del([
-        './build/**/*','build'
-                // here we use a globbing pattern to match everything inside the `mobile` folder
-                //'dist/mobile/**/*',
-                // we don't want to clean this file though so we negate the pattern
-                //'!dist/mobile/deploy.json'
-    ]);
+    var paths = 
+      del.sync(['build']);
+      // console.log('del\n'+paths.join('\n'));
 });
 
 /**
@@ -99,7 +95,7 @@ gulp.task('copy-assets', ['copy-html','copy-images','copy-css'], function () {
 
 gulp.task('copy-html',   function () {
     gulp.src('**/*', {base: './public_html'})
-            .pipe(gulp.dest('./build/'));
+            .pipe(gulp.dest('./build/')).pipe(sync.stream());;
      
 
 });
@@ -133,7 +129,7 @@ gulp.task('serve', function () {
         }
     });
 
-    gulp.watch('public_html/**/*.*', ['copy-html', sync.reload]);
+    gulp.watch('public_html/**/*.*', ['copy-html']);
     gulp.watch('src/css/**/*.*', ['copy-css', sync.reload]);
     gulp.watch('src/images/**/*.*', ['copy-images', sync.reload]);
     gulp.watch('src/js/**/*.*', ['bundle-js', sync.reload]);
