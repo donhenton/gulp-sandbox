@@ -74,7 +74,7 @@ gulp.task('watch-bundle-js', function ( ) {
 gulp.task('bundle-js', function ( ) {
     //var bb = browserify(jsSrc);
    browserify(conf.jsSrc).bundle()
-            .on('error', notify)
+            .on('error', sync.notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
             .pipe(gulpif(conf.env === 'prod', uglify()))
