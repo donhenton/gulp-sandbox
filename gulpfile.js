@@ -33,3 +33,14 @@ gulp.task('clean', function ( ) {
  
 gulp.task('build-serve', [ 'copy-assets','watch-assets', 'watch-bundle-js', 'serve']);
 gulp.task('build', ['clean', 'copy-assets','bundle-js']);
+ 
+ 
+ /*
+  * 
+  * prod vs dev build can be done at the command line
+  * NODE_ENV=prod gulp build
+  * NODE_ENV=dev  gulp build
+  * 
+  * Dev build will have minmaps for js, and the js will be uglified
+  * 
+  */

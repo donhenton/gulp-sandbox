@@ -8,11 +8,17 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
+var conf = require('./conf');
 
 
+/**
+The use of '_' in the scss file names apparently prevents them 
+from being picked up by the sass processor. if that wasn't the case, they
+would have their contents added to style.css
 
+*/
 gulp.task('copy-css', function () {
-    console.log("copy css called")
+     
     gulp.src('./src/sass/**/*.scss')
             .pipe(sass().on('error', sass.logError))
             .pipe(concat('style.css'))
@@ -57,7 +63,7 @@ gulp.task('watch-assets', function () {
  */
 exports.jsSrc = {
     entries: ['./src/js/main.js'],
-    debug: exports.env === 'dev',
+    debug: conf.env === 'dev',
     cache: {},
     noParse: ['./node_modules/jquery/dist/jquery.js'],
     packageCache: {},

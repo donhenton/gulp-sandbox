@@ -1,0 +1,134 @@
+
+
+/****************
+Nav
+****************/
+nav {
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index:1;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    figure {
+        width: 160px;
+        position: absolute;
+        top: -20px;
+        left: 50px;
+        -webkit-animation: crazyShark 1s ease;  
+        animation: crazyShark 1s ease;
+    }
+
+    li a{
+        font-family: Arial, Helvetica, sans-serif;
+        color: #766e65;
+        text-transform: uppercase;
+        font-size: 15px;
+        text-align: center;
+        -webkit-transition: 0.15s background-color linear;
+        -moz-transition: 0.15s background-color linear;
+        -o-transition: 0.15s background-color linear;
+        transition: 0.15s background-color linear; 
+
+        &:focus, &:hover, &.active
+            {
+            background-color: #eb2428;
+            color: #fff;
+        }
+
+    }
+
+}
+
+@-webkit-keyframes crazyShark {
+    0% { -webkit-transform: translate(45%, 35%);opacity: 0;}   
+    33% {-webkit-transform: translate(20%, 10%) rotate(90deg);}
+    66% {-webkit-transform: translate(5%, 25%);}
+    100% {-webkit-transform: translate(0%) rotate(0deg);opacity: 1;} 
+}
+@keyframes crazyShark {
+    0% {transform: translate(45%, 35%);opacity: 0;}   
+    33% {transform: translate(20%, 10%) rotate(90deg);}
+    66% {transform: translate(5%, 25%);}
+    100% {transform: translate(0%) rotate(0deg);opacity: 1;} 
+}
+
+.primary-nav > li:first-child > a {
+    border-left: none;
+}
+
+.primary-nav 
+{
+    float: right;
+    display: block;
+    > li
+    {
+        float: left;
+        > a
+        {
+            float: left;
+            padding: 25px 0;
+            width: 150px;
+            border-left: 1px solid #ada791;
+
+        }
+    }
+}
+.mobile-menu-icon {
+    background: url('../images/mobile-menu-icon.png') 0 0 no-repeat;
+    width: 30px;
+    height: 26px;
+    float: right;
+    margin: 10px 15px 10px 0;
+    cursor: pointer;
+    &.open
+    {
+        background-image: url('../images/mobile-menu-close-icon.png');
+    }
+}
+
+/****************
+Drop Down Menu
+****************/
+
+@-webkit-keyframes slideDown {
+    0% { -webkit-transform: translateY(-100%);opacity: 0;}   
+    90% {-webkit-transform: translateY(10%);}
+    100% {-webkit-transform: translateY(0%);opacity: 1;} 
+}
+@keyframes slideDown {
+    0% { transform: translateY(-100%);opacity: 0;}   
+    90% {transform: translateY(10%);}
+    100% {transform: translateY(0%);opacity: 1;} 
+}
+.has-submenu{ 
+    a {
+        display: block;
+        padding: 20px 0;
+        z-index: 10;
+        position: relative;
+    }
+
+    ul{
+        position: absolute;
+        z-index: 5;
+        top: 70px;
+        background-color: #fff;
+        border-bottom: 1px solid #ada791;
+        border-left: 1px solid #ada791;
+        border-right: 1px solid #ada791;
+        width: 150px;
+        border-radius: 0 0 15px 15px;
+        overflow: hidden;
+        display: none;
+    }
+    &:hover ul
+        {
+        display: block;
+        -webkit-animation: slideDown .5s ease;  
+        animation: slideDown .5s ease;           
+    }
+
+}
+/*-------------end nav.scss---------------------------*/

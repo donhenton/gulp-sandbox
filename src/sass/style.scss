@@ -1,219 +1,11 @@
 @import "resources/reset.scss";
 @import "resources/variables.scss";
 @import "resources/globals.scss";
+@import "resources/buttons.scss";
+@import "resources/nav.scss";
+@import "resources/premium.scss" ;
 
-/****************
-Buttons
-****************/
-.button {
-    border: 2px solid #333;
-    color: #333;
-    padding: 10px 0;
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    font-family: Arial, Helvetica, sans-serif;
-    -webkit-transition: all .25s linear;
-    -moz-transition: all .25s linear;
-    -o-transition: all .25s linear;
-    transition: all .25s linear;
-    transform: scale(.9, .9);
-}
-.button:focus,
-.button:hover {
-    background-color: #333;
-    color: #fff;
-    -webkit-transform: scale(1, 1) translate(0, -5px);
-    -moz-transform: scale(1, 1) translate(0, -5px);
-    -ms-transform: scale(1, 1) translate(0, -5px);
-    transform: scale(1, 1) translate(0, -5px);
-}
-.button-narrow {
-    width: 25%;
-}
-.button-alt {
-    color: #fff;
-    border-color: #fff;
-}
-/****************
-Go Premium
-****************/
-.intro-content {
-    width: 62.5%; /* 600/960 */
-    margin-right: 6.25%; /* 60/960 */
-    float: left;
-}
-.go-premium {
-    width: 31.25%; /* 300/960 */
-    float: left;
-    margin-top: 150px;
-}
-.call-to-action {
-    border: 2px solid #fff;
-    color: #fff;
-    background-color: #0072AE;
-    padding: 25px 0;
-    display: block;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    -webkit-transition: all .25s ease-in-out;
-    -moz-transition: all .25s ease-in-out;
-    -o-transition: all .25s ease-in-out;
-    transition: all .25s ease-in-out;
-    background: #33d3ff; /* Old browsers */
-    background: -moz-linear-gradient(top,  #33d3ff 0%, #0071ae 99%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#33d3ff), color-stop(99%,#0071ae)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #33d3ff 0%,#0071ae 99%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #33d3ff 0%,#0071ae 99%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #33d3ff 0%,#0071ae 99%); /* IE10+ */
-    background: linear-gradient(to bottom,  #33d3ff 0%,#0071ae 99%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33d3ff', endColorstr='#0071ae',GradientType=0 ); /* IE6-9 */
-    :hover {
-        border-color: #0072AE;
-        color: #0072AE;
-        background: none;
-    } 
-}
-.reasons {
-    color: #333;
-    font-size: 12px;
-    margin-top: 15px;
-    text-align: center;
-}
-/****************
-Nav
-****************/
-nav {
-    background-color: #fff;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index:1;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    figure {
-        width: 160px;
-        position: absolute;
-        top: -20px;
-        left: 50px;
-        -webkit-animation: crazyShark 1s ease;  
-        animation: crazyShark 1s ease;
-    }
 
-    li a{
-        font-family: Arial, Helvetica, sans-serif;
-        color: #766e65;
-        text-transform: uppercase;
-        font-size: 15px;
-        text-align: center;
-        -webkit-transition: 0.15s background-color linear;
-        -moz-transition: 0.15s background-color linear;
-        -o-transition: 0.15s background-color linear;
-        transition: 0.15s background-color linear; 
-
-        &:focus, &:hover, &.active
-            {
-            background-color: #eb2428;
-            color: #fff;
-        }
-
-    }
-
-}
-
-@-webkit-keyframes crazyShark {
-    0% { -webkit-transform: translate(45%, 35%);opacity: 0;}   
-    33% {-webkit-transform: translate(20%, 10%) rotate(90deg);}
-    66% {-webkit-transform: translate(5%, 25%);}
-    100% {-webkit-transform: translate(0%) rotate(0deg);opacity: 1;} 
-}
-@keyframes crazyShark {
-    0% {transform: translate(45%, 35%);opacity: 0;}   
-    33% {transform: translate(20%, 10%) rotate(90deg);}
-    66% {transform: translate(5%, 25%);}
-    100% {transform: translate(0%) rotate(0deg);opacity: 1;} 
-}
-
-.primary-nav > li:first-child > a {
-    border-left: none;
-}
-
-.primary-nav 
-{
-    float: right;
-    display: block;
-    > li
-    {
-        float: left;
-        > a
-        {
-            float: left;
-            padding: 25px 0;
-            width: 150px;
-            border-left: 1px solid #ada791;
-
-        }
-    }
-}
-.mobile-menu-icon {
-    background: url('../images/mobile-menu-icon.png') 0 0 no-repeat;
-    width: 30px;
-    height: 26px;
-    float: right;
-    margin: 10px 15px 10px 0;
-    cursor: pointer;
-    &.open
-    {
-        background-image: url('../images/mobile-menu-close-icon.png');
-    }
-}
-
-/****************
-Drop Down Menu
-****************/
-
-@-webkit-keyframes slideDown {
-    0% { -webkit-transform: translateY(-100%);opacity: 0;}   
-    90% {-webkit-transform: translateY(10%);}
-    100% {-webkit-transform: translateY(0%);opacity: 1;} 
-}
-@keyframes slideDown {
-    0% { transform: translateY(-100%);opacity: 0;}   
-    90% {transform: translateY(10%);}
-    100% {transform: translateY(0%);opacity: 1;} 
-}
-.has-submenu{ 
-    a {
-        display: block;
-        padding: 20px 0;
-        z-index: 10;
-        position: relative;
-    }
-
-    ul{
-        position: absolute;
-        z-index: 5;
-        top: 70px;
-        background-color: #fff;
-        border-bottom: 1px solid #ada791;
-        border-left: 1px solid #ada791;
-        border-right: 1px solid #ada791;
-        width: 150px;
-        border-radius: 0 0 15px 15px;
-        overflow: hidden;
-        display: none;
-    }
-    &:hover ul
-        {
-        display: block;
-        -webkit-animation: slideDown .5s ease;  
-        animation: slideDown .5s ease;           
-    }
-
-}
 
 /****************
 Interior Pages
@@ -253,10 +45,10 @@ Interior Pages
     img
     {
         float: left;
-        -webkit-transition: transform .25s ease-in-out;
-        -moz-transition: transform .25s ease-in-out;
-        -o-transition: transform .25s ease-in-out;
-        transition: transform .25s ease-in-out;
+        -webkit-transition: transform $animation-time ease-in-out;
+        -moz-transition: transform $animation-time ease-in-out;
+        -o-transition: transform $animation-time ease-in-out;
+        transition: transform $animation-time ease-in-out;
         &:hover
             {
             -webkit-transform: rotate(15deg) scale(1.25, 1.25);
@@ -274,42 +66,42 @@ Interior Pages
 3 columns
 ****************/
 .column {
-  float: left;
-  width: 31.25%; /* 300/960 */
-  margin-left: 3.125%; /* 30/960 */
+    float: left;
+    width: 31.25%; /* 300/960 */
+    margin-left: 3.125%; /* 30/960 */
 }
 .column:first-child {
-  margin-left: 0;
+    margin-left: 0;
 }
 
 /****************
 Start of Media Queries
 ****************/
 @media screen and (max-width: 1023px){
-  .intro-content {
-    width: auto;
-    float: none;
-    padding-bottom: 0;
-    margin-bottom: 30px;
-  }
-  .go-premium {
-    width: auto;
-    float: none;
-    margin-top: 0;
-  }
-  .column {
-    float: none;
-    width: auto;
-    padding: 0 50px;
-  }
-  .column figure {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 250px;
-  }
-  .column h2 {
-    text-align: center;
-  }
+    .intro-content {
+        width: auto;
+        float: none;
+        padding-bottom: 0;
+        margin-bottom: 30px;
+    }
+    .go-premium {
+        width: auto;
+        float: none;
+        margin-top: 0;
+    }
+    .column {
+        float: none;
+        width: auto;
+        padding: 0 50px;
+    }
+    .column figure {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 250px;
+    }
+    .column h2 {
+        text-align: center;
+    }
 }
 
 
