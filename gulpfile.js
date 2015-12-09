@@ -35,23 +35,7 @@ gulp.task('test', function (done) {
     singleRun: true
   }, done).start();
 });
-/*
-gulp.task('test', function(done) {
-    
-    
-    
-    
-    
-    
-    
-    karma.start({
-        configFile: 'test/jasmine/conf/jasmine.conf.js',
-        singleRun: true
-    }, function() {
-        done();
-    });
-});
-*/
+
 
 gulp.task('build-serve', ['copy-assets', 'watch-assets', 'watch-bundle-js', 'serve']);
 gulp.task('build', ['clean', 'copy-assets', 'bundle-js']);
