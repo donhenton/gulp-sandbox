@@ -1,6 +1,6 @@
 var notifier = require('node-notifier');
 var gulp = require('gulp');
-var css = require('./css');
+var css = require('./srcLocation');
 
 /**
  * error notification function

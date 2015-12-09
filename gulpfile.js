@@ -41,23 +41,6 @@ gulp.task('copy-assets', ['copy-html', 'copy-images', 'copy-css'], function () {
 
 });
 
-gulp.task('copy-html', function () {
-    gulp.src('**/*', {base: './public_html'})
-            .pipe(gulp.dest('./build/'));
-
-
-});
-
-
-
-gulp.task('copy-images', function () {
-
-    gulp.src('src/images/**/*')
-            .pipe(gulp.dest('./build/images'));
-
-});
-
-
 
 
 

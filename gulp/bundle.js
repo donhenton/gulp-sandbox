@@ -1,29 +1,16 @@
-
-/*
-var gulp = require('gulp');
-var path = require('path');
-var gutil = require('gulp-util');
-
-
-var notifier = require('node-notifier');
-var concat = require('gulp-concat');
-var del = require('del');
-
-
-
-//var watch = require('gulp-watch');
-
-
-var json3 = require('json3')
-
-*/
-
+/**
+ * 
+ * @type Module gulp|Module gulp
+ * code that is responsible for serving the site and watching javascript
+ * changes
+ */
 
 var gulp = require('gulp');
 var watchify = require('watchify');
 var browserify = require('browserify');
 var conf = require('./conf');
 var sync = require('./sync');
+var srcLocation = require('./srcLocation');
 var gulpif = require('gulp-if');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -38,7 +25,7 @@ var uglify = require('gulp-uglify');
  * @type type
  */
 
-var watchBundler = watchify(browserify(conf.jsSrc));
+var watchBundler = watchify(browserify(srcLocation.jsSrc));
 
 
 /**
@@ -73,7 +60,7 @@ gulp.task('watch-bundle-js', function ( ) {
 
 gulp.task('bundle-js', function ( ) {
     //var bb = browserify(jsSrc);
-   browserify(conf.jsSrc).bundle()
+   browserify(srcLocation.jsSrc).bundle()
             .on('error', sync.notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
