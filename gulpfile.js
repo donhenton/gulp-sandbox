@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var conf = require('./gulp/conf');
 var gulp = require('gulp');
 var path = require('path');
 var gutil = require('gulp-util');
@@ -19,6 +19,18 @@ var gulpif = require('gulp-if')
 var watchify = require('watchify');
 var sync = require('browser-sync').create();
 var json3 = require('json3')
+
+var wrench = require('wrench');
+
+/**
+ *  This will load all js or coffee files in the gulp directory
+ *  in order to load all gulp tasks
+ */
+wrench.readdirSyncRecursive('./gulp').filter(function(file) {
+  return (/\.(js|coffee)$/i).test(file);
+}).map(function(file) {
+  require('./gulp/' + file);
+});
 
 /**
  * error notification function
@@ -47,29 +59,7 @@ var notify = function (error) {
     notifier.notify({title: title, message: message});
 };
 
-/**
- * set the env environment variable this can be passed into the command
- * for prod vs dev env
- * @type process.env.NODE_ENV|String
- */
-var env = process.env.NODE_ENV;
-if (!env)
-{
-    env = 'dev';
-}
 
-/**
- * where are javascript is located and what to do with browserify
- * @type type
- */
-var jsSrc = {
-    entries: ['./src/js/main.js'],
-    debug: env === 'dev',
-    cache: {},
-    noParse: ['./node_modules/jquery/dist/jquery.js'],
-    packageCache: {},
-    fullPaths: true
-};
 
  
 /**
@@ -78,7 +68,7 @@ var jsSrc = {
  * @type type
  */
 
-var watchBundler = watchify(browserify(jsSrc));
+var watchBundler = watchify(browserify(conf.jsSrc));
 
 
 /**
@@ -93,7 +83,7 @@ function watchBundle(f) {
             .on('error', notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
-            .pipe(gulpif(env === 'prod', uglify()))
+            .pipe(gulpif(conf.env === 'prod', uglify()))
             .pipe(gulp.dest('./build/js'));
 
     return b;
@@ -113,11 +103,11 @@ gulp.task('watch-bundle-js', function ( ) {
 
 gulp.task('bundle-js', function ( ) {
     //var bb = browserify(jsSrc);
-   browserify(jsSrc).bundle()
+   browserify(conf.jsSrc).bundle()
             .on('error', notify)
             .pipe(source('bundle.js'))
             .pipe(buffer())
-            .pipe(gulpif(env === 'prod', uglify()))
+            .pipe(gulpif(conf.env === 'prod', uglify()))
             .pipe(gulp.dest('./build/js'));
 });
 
