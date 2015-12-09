@@ -31,6 +31,6 @@ gulp.task('clean', function ( ) {
 
 
 
-gulp.task('build-clean', ['clean']);
-gulp.task('build-serve', [ 'copy-assets','watch-assets', 'watch-bundle-js', 'serve']);
+ 
+gulp.task('build-server', [ 'copy-assets','watch-assets', 'watch-bundle-js', 'serve']);
 gulp.task('build', ['clean', 'copy-assets','bundle-js']);
