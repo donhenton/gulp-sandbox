@@ -20,7 +20,11 @@ var watchify = require('watchify');
 var sync = require('browser-sync').create();
 var json3 = require('json3')
 
-
+/**
+ * error notification function
+ * @param {type} error
+ * @returns {undefined}
+ */
 var notify = function (error) {
     var message = 'In: ';
     var title = 'Error: ';
@@ -42,26 +46,49 @@ var notify = function (error) {
 
     notifier.notify({title: title, message: message});
 };
+
+/**
+ * set the env environment variable this can be passed into the command
+ * for prod vs dev env
+ * @type process.env.NODE_ENV|String
+ */
 var env = process.env.NODE_ENV;
 if (!env)
 {
     env = 'dev';
 }
 
-var bundler = watchify(browserify({
+/**
+ * where are javascript is located and what to do with browserify
+ * @type type
+ */
+var jsSrc = {
     entries: ['./src/js/main.js'],
     debug: env === 'dev',
     cache: {},
     noParse: ['./node_modules/jquery/dist/jquery.js'],
     packageCache: {},
     fullPaths: true
-}));
+};
+
+ 
+/**
+ * function that will watch and package up via browswerify, there 
+ * will need to be require statements in you js code see src/js/main.js
+ * @type type
+ */
+
+var watchBundler = watchify(browserify(jsSrc));
 
 
+/**
+ * on update function for watchify. 
+ * @param {type} f file responsible for triggering change
+ * @returns {unresolved}
+ */
+function watchBundle(f) {
 
-function bundle(f) {
-    // console.log(f);
-    var b = bundler
+    var b = watchBundler
             .bundle()
             .on('error', notify)
             .pipe(source('bundle.js'))
@@ -72,18 +99,34 @@ function bundle(f) {
     return b;
 }
 
-bundler.on("update", bundle);
+watchBundler.on("update", watchBundle);
+
+/**
+ * bundle up js and notify browser watch
+ * @param {type} param1
+ * @param {type} param2
+ */
+gulp.task('watch-bundle-js', function ( ) {
+
+    watchBundle().pipe(sync.stream());
+});
 
 gulp.task('bundle-js', function ( ) {
-
-    bundle().pipe(sync.stream());
+    //var bb = browserify(jsSrc);
+   browserify(jsSrc).bundle()
+            .on('error', notify)
+            .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(gulpif(env === 'prod', uglify()))
+            .pipe(gulp.dest('./build/js'));
 });
+
 
 
 gulp.task('clean', function () {
 
     del.sync(['build']);
-    // console.log('del\n'+paths.join('\n'));
+     
 });
 
 /**
@@ -101,12 +144,17 @@ gulp.task('copy-html', function () {
 
 });
 
+function loadCss()
+{
+    return gulp.src('src/css/**/*.css').pipe(gulp.dest('./build/css'));
+}
+
+
 gulp.task('copy-css', function () {
 
-    gulp.src('src/css/**/*.css')
-            .pipe(gulp.dest('./build/css')).pipe(sync.stream());
+   loadCss();
 
-
+//.pipe(sync.stream())
 });
 
 gulp.task('copy-images', function () {
@@ -115,9 +163,7 @@ gulp.task('copy-images', function () {
             .pipe(gulp.dest('./build/images'));
 
 });
-//gulp.task('html-watch',  ['copy-html'],sync.reload);
-//gulp.task('css-watch',   ['copy-css'],sync.reload);
-//gulp.task('images-watch',  ['copy-images'],sync.reload);
+
 
 /* ----------------------- watch --------------------------- */
 
@@ -140,17 +186,17 @@ gulp.task('serve', function () {
         }
     });
     gulp.watch('src/css/**/*.*', function (event) {
-        
-            gulp.start('copy-css');
-         
+
+          loadCss().pipe(sync.stream())
+
     });
     gulp.watch('src/images/**/*.*', function (event) {
-            gulp.start('copy-images');
-            sync.reload;
-         
+        gulp.start('copy-images');
+        sync.reload;
+
     });
-    gulp.watch('src/js/**/*.*', ['bundle-js']);
+    gulp.watch('src/js/**/*.*', ['watch-bundle-js']);
 });
-//gulp.task('build', ['clean', 'bundle-js', 'copy-assets']);
-gulp.task('build-serve', ['clean', 'copy-assets', 'bundle-js', 'serve']);
-gulp.task('build', ['clean', 'copy-assets', 'bundle-js']);
+
+gulp.task('build-serve', ['clean', 'copy-assets', 'watch-bundle-js', 'serve']);
+gulp.task('build', ['clean', 'copy-assets','bundle-js']);
