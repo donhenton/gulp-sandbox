@@ -22,28 +22,15 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
 
 
 
-
-
- 
-
-
 gulp.task('clean', function ( ) {
 
     del.sync(['build'] );
      
 });
 
-/**
- * copy the html stuff minus css and js
- */
-gulp.task('copy-assets', ['copy-html', 'copy-images', 'copy-css'], function () {
-
-
-});
 
 
 
-
-
-gulp.task('build-serve', ['clean', 'copy-assets', 'watch-bundle-js', 'serve']);
+gulp.task('build-clean', ['clean']);
+gulp.task('build-serve', [ 'copy-assets','watch-assets', 'watch-bundle-js', 'serve']);
 gulp.task('build', ['clean', 'copy-assets','bundle-js']);

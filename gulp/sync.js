@@ -1,6 +1,8 @@
 var notifier = require('node-notifier');
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var css = require('./srcLocation');
+var server = require('gulp-server-livereload');
 
 /**
  * error notification function
@@ -29,39 +31,42 @@ exports.notify = function (error) {
     notifier.notify({title: title, message: message});
 };
 
- 
+
 
 function isOnlyChange(event) {
     return event.type === 'changed';
 }
- 
 
 
-exports.browserSync = require('browser-sync').create();
 
-gulp.task('serve', function () {
-  
-    exports.browserSync.init({
-        server: {
-            baseDir: 'build'
-        }
-    });
-    gulp.watch('public_html/**/*.html', function (event) {
-        if (isOnlyChange(event)) {
-            gulp.start('copy-html');
-            exports.browserSync.reload;
-            // console.log(json3.stringify(event));
-        }
-    });
-    gulp.watch('src/css/**/*.*', function (event) {
+gulp.task('serve', function (done) {
+    gulp.src('build').on('error', gutil.log)
+            .pipe(server(
+                    {
+                        livereload: true,
+                        
+                        open: true
 
-          css.loadCss().pipe(exports.browserSync.stream())
+                    }
 
-    });
-    gulp.watch('src/images/**/*.*', function (event) {
-        gulp.start('copy-images');
-        exports.browserSync.reload;
 
-    });
-    gulp.watch('src/js/**/*.*', ['watch-bundle-js']);
+
+            ));
 });
+
+/*
+ * {
+ livereload: {
+ enable: true,
+ directoryListing: true,
+ filter: function (filePath, cb) {
+ if (/main.js/.test(filePath)) {
+ cb(true)
+ } else if (/style.css/.test(filePath)) {
+ cb(true)
+ }
+ }
+ },
+ open: true
+ }
+ */

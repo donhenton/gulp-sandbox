@@ -55,7 +55,7 @@ watchBundler.on("update", watchBundle);
  */
 gulp.task('watch-bundle-js', function ( ) {
 
-    watchBundle().pipe(sync.browserSync.stream());
+    watchBundle();
 });
 
 gulp.task('bundle-js', function ( ) {

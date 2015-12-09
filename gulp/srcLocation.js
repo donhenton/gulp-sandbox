@@ -40,7 +40,19 @@ gulp.task('copy-images', function () {
 
 });
 
+/**
+ * copy the html stuff minus css and js
+ */
+gulp.task('copy-assets', ['copy-html', 'copy-images', 'copy-css'], function () {
 
+
+});
+
+gulp.task('watch-assets', function () {
+  gulp.watch('./public_html/**/*.html', ['copy-html']);
+  gulp.watch('./src/css/*.css', ['copy-css']);
+  gulp.watch('./src/images/*.*', ['copy-images']);
+});
 
 /**
  * where are javascript is located and what to do with browserify
