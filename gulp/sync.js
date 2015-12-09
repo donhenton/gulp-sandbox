@@ -1,7 +1,6 @@
 var notifier = require('node-notifier');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var css = require('./srcLocation');
 var server = require('gulp-server-livereload');
 
 /**
@@ -33,12 +32,6 @@ exports.notify = function (error) {
 
 
 
-function isOnlyChange(event) {
-    return event.type === 'changed';
-}
-
-
-
 gulp.task('serve', function (done) {
     gulp.src('build').on('error', gutil.log)
             .pipe(server(
@@ -54,19 +47,3 @@ gulp.task('serve', function (done) {
             ));
 });
 
-/*
- * {
- livereload: {
- enable: true,
- directoryListing: true,
- filter: function (filePath, cb) {
- if (/main.js/.test(filePath)) {
- cb(true)
- } else if (/style.css/.test(filePath)) {
- cb(true)
- }
- }
- },
- open: true
- }
- */

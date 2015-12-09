@@ -6,22 +6,19 @@
  */
 
 var gulp = require('gulp');
+var sass = require('gulp-sass');
+var concat = require('gulp-concat');
 
-/**
- * the definition of what css to process
- * @returns {unresolved}
- */
-exports.loadCss = function ()
-{
-    return gulp.src('src/css/**/*.css').pipe(gulp.dest('./build/css'));
-};
 
 
 gulp.task('copy-css', function () {
 
-    exports.loadCss();
+    gulp.src('./src/sass/*.scss')
+            .pipe(sass().on('error', sass.logError))
+            .pipe(concat('style.css'))
+            .pipe(gulp.dest('./build/css'));
 
- 
+
 });
 
 gulp.task('copy-html', function () {
@@ -49,9 +46,9 @@ gulp.task('copy-assets', ['copy-html', 'copy-images', 'copy-css'], function () {
 });
 
 gulp.task('watch-assets', function () {
-  gulp.watch('./public_html/**/*.html', ['copy-html']);
-  gulp.watch('./src/css/*.css', ['copy-css']);
-  gulp.watch('./src/images/*.*', ['copy-images']);
+    gulp.watch('./public_html/**/*.html', ['copy-html']);
+    gulp.watch('.src/sass/**/*.scss', ['copy-css']);
+    gulp.watch('./src/images/*.*', ['copy-images']);
 });
 
 /**
