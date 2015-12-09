@@ -12,8 +12,8 @@ var concat = require('gulp-concat');
 
 
 gulp.task('copy-css', function () {
-
-    gulp.src('./src/sass/*.scss')
+    console.log("copy css called")
+    gulp.src('./src/sass/**/*.scss')
             .pipe(sass().on('error', sass.logError))
             .pipe(concat('style.css'))
             .pipe(gulp.dest('./build/css'));
@@ -47,7 +47,7 @@ gulp.task('copy-assets', ['copy-html', 'copy-images', 'copy-css'], function () {
 
 gulp.task('watch-assets', function () {
     gulp.watch('./public_html/**/*.html', ['copy-html']);
-    gulp.watch('.src/sass/**/*.scss', ['copy-css']);
+    gulp.watch(['./src/sass/style.scss','./src/sass/resources/*.scss'], ['copy-css']);
     gulp.watch('./src/images/*.*', ['copy-images']);
 });
 
