@@ -47,6 +47,6 @@ gulp.task('build', ['clean', 'copy-assets', 'bundle-js']);
  * NODE_ENV=prod gulp build
  * NODE_ENV=dev  gulp build
  * 
- * Dev build will have minmaps for js, and the js will be uglified
- * 
+ * dev build will have minmaps for js, and the js will not be uglified
+ * prod build will have no minmaps for js, and the js will be uglified
  */
