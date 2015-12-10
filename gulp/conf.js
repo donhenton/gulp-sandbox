@@ -10,4 +10,4 @@ if (!exports.env)
     exports.env = 'dev';
 }
 
-console.log("env is "+exports.env)
+//console.log("env is "+exports.env)
