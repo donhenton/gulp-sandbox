@@ -10,6 +10,7 @@ This project is a playground for using sass gulp and browserify.
 * karma based unit testing
 * complete build with **NO** watchify watching
 * complete build with watchify and live reload server
+* sass usuage
 * production vs dev build by command line parameter
 * dev build adds minmaps for browserify and does not uglify
 * prod build removes minmaps and uglifies
